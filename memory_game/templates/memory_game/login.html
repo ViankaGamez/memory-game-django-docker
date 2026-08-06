@@ -1,0 +1,89 @@
+{% extends 'memory_game/base.html' %}
+
+{% block title %}
+Iniciar sesión | Memory Game
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+  <div class="col-md-6 col-lg-5">
+
+    <div class="tarjeta">
+
+      <div class="text-center mb-4">
+
+        <h1 class="titulo-principal">
+          🧠 Memory Game
+        </h1>
+
+        <p class="subtitulo">
+          Inicia sesión para comenzar a jugar.
+        </p>
+
+      </div>
+
+
+      {% if form.errors %}
+
+      <div class="alert alert-danger">
+        Usuario o contraseña incorrectos.
+      </div>
+
+      {% endif %}
+
+
+      <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="mb-3">
+
+          <label for="{{ form.username.id_for_label }}">
+            Usuario
+          </label>
+
+          {{ form.username }}
+
+        </div>
+
+
+        <div class="mb-4">
+
+          <label for="{{ form.password.id_for_label }}">
+            Contraseña
+          </label>
+
+          {{ form.password }}
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary w-100">
+          Iniciar sesión
+        </button>
+
+      </form>
+
+
+      <div class="text-center mt-4">
+
+        <p class="mb-0">
+          ¿No tienes una cuenta?
+        </p>
+
+        <a href="{% url 'registro' %}">
+          Crear una cuenta
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'memory_game/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ nivel.nombre }} | Memory Game
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'memory_game/css/juego.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="juego-contenedor">
+
+  <div class="text-center mb-4">
+
+    <h1 class="titulo-principal">
+      🧠 Memory Game
+    </h1>
+
+    <h2 class="nivel-titulo">
+      Nivel {{ nivel.nombre }}
+    </h2>
+
+    <p class="subtitulo">
+      Encuentra las 8 parejas antes de quedarte sin tiempo o intentos.
+    </p>
+
+  </div>
+
+
+  <div class="row g-3 mb-4 justify-content-center">
+
+    <div class="col-4 col-md-3">
+
+      <div class="indicador-juego">
+
+        <span class="icono-indicador">
+          🎯
+        </span>
+
+        <small>
+          Intentos
+        </small>
+
+        <strong id="intentos">
+          {{ nivel.intentos }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-4 col-md-3">
+
+      <div class="indicador-juego">
+
+        <span class="icono-indicador">
+          ⏱️
+        </span>
+
+        <small>
+          Tiempo
+        </small>
+
+        <strong>
+          <span id="tiempo">
+            {{ nivel.tiempo }}
+          </span>s
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-4 col-md-3">
+
+      <div class="indicador-juego">
+
+        <span class="icono-indicador">
+          🧩
+        </span>
+
+        <small>
+          Parejas
+        </small>
+
+        <strong>
+          <span id="parejas">0</span>/8
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="text-center mb-3">
+
+    <button id="boton-sonido" type="button" class="btn btn-sm btn-outline-secondary">
+      🔊 Sonido activado
+    </button>
+
+  </div>
+
+  <div class="zona-tablero">
+
+    <div id="tablero" class="tablero" data-intentos="{{ nivel.intentos }}" data-tiempo="{{ nivel.tiempo }}"
+      data-nivel="{{ nivel.codigo }}">
+    </div>
+
+  </div>
+
+
+  <div id="resultado" class="resultado oculto">
+
+    <div class="resultado-contenido">
+
+      <div class="resultado-icono">
+        🎮
+      </div>
+
+      <h2 id="mensaje-resultado">
+      </h2>
+
+      <p>
+        Tu partida ha terminado.
+      </p>
+
+
+      <button id="reiniciar" class="btn btn-primary">
+        🔄 Jugar nuevamente
+      </button>
+
+
+      <a href="{% url 'inicio' %}" class="btn btn-outline-secondary">
+        Elegir otro nivel
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-center mt-4">
+
+    <a class="btn btn-outline-primary" href="{% url 'inicio' %}">
+      ← Volver a niveles
+    </a>
+
+  </div>
+
+</div>
+
+
+<form id="csrf-form" style="display: none;">
+  {% csrf_token %}
+</form>
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'memory_game/js/juego.js' %}">
+</script>
+
+{% endblock %}

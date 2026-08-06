@@ -1,0 +1,192 @@
+.juego-contenedor {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.nivel-titulo {
+  font-size: 1.3rem;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.indicador-juego {
+  background: white;
+  border-radius: 15px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  height: 100%;
+}
+
+.indicador-juego small {
+  display: block;
+  color: #6c757d;
+  margin-top: 3px;
+}
+
+.indicador-juego strong {
+  display: block;
+  color: #302b63;
+  font-size: 1.6rem;
+  margin-top: 3px;
+}
+
+.icono-indicador {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.zona-tablero {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+}
+
+.carta {
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(135deg,
+      #302b63,
+      #514a9d);
+
+  color: transparent;
+
+  cursor: pointer;
+
+  font-size: 0;
+
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.20);
+
+  transition:
+    transform 0.25s,
+    background 0.25s,
+    box-shadow 0.25s;
+}
+
+.carta::before {
+  content: "?";
+
+  color: white;
+
+  font-size: 2rem;
+
+  font-weight: bold;
+}
+
+.carta:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 7px 16px rgba(0, 0, 0, 0.25);
+}
+
+.carta.volteada,
+.carta.encontrada {
+  background: white;
+
+  border: 2px solid #514a9d;
+
+  font-size: 2.8rem;
+
+  color: initial;
+
+  transform: rotateY(180deg);
+}
+
+.carta.volteada::before,
+.carta.encontrada::before {
+  display: none;
+}
+
+.carta.encontrada {
+  background: #e8fff1;
+
+  border-color: #198754;
+
+  cursor: default;
+
+  box-shadow:
+    0 0 12px rgba(25, 135, 84, 0.30);
+}
+
+.resultado {
+  margin-top: 25px;
+}
+
+.resultado-contenido {
+  background: white;
+
+  max-width: 500px;
+
+  margin: auto;
+
+  padding: 30px;
+
+  border-radius: 18px;
+
+  text-align: center;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.10);
+}
+
+.resultado-icono {
+  font-size: 3rem;
+}
+
+.resultado-contenido h2 {
+  color: #302b63;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.oculto {
+  display: none;
+}
+
+
+@media (max-width: 576px) {
+
+  .zona-tablero {
+    padding: 15px;
+  }
+
+  .tablero {
+    gap: 7px;
+  }
+
+  .carta {
+    border-radius: 10px;
+  }
+
+  .carta.volteada,
+  .carta.encontrada {
+    font-size: 2rem;
+  }
+
+  .carta::before {
+    font-size: 1.5rem;
+  }
+
+  .indicador-juego {
+    padding: 10px 5px;
+  }
+
+  .indicador-juego strong {
+    font-size: 1.25rem;
+  }
+}

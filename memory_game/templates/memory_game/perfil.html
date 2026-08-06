@@ -1,0 +1,232 @@
+{% extends 'memory_game/base.html' %}
+
+{% block title %}
+Mi Perfil | Memory Game
+{% endblock %}
+
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+  <h1 class="titulo-principal">
+    Perfil de {{ user.username }}
+  </h1>
+
+  <p class="subtitulo">
+    Consulta tu progreso en Memory Game.
+  </p>
+
+</div>
+
+
+<div class="row g-4 mb-5">
+
+  <div class="col-md-3 col-6">
+
+    <div class="estadistica">
+
+      <p class="mb-2">
+        🎮 Partidas
+      </p>
+
+      <h3>
+        {{ total_partidas }}
+      </h3>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-md-3 col-6">
+
+    <div class="estadistica">
+
+      <p class="mb-2">
+        🏆 Victorias
+      </p>
+
+      <h3>
+        {{ victorias }}
+      </h3>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-md-3 col-6">
+
+    <div class="estadistica">
+
+      <p class="mb-2">
+        ❌ Derrotas
+      </p>
+
+      <h3>
+        {{ derrotas }}
+      </h3>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-md-3 col-6">
+
+    <div class="estadistica">
+
+      <p class="mb-2">
+        ⏱ Promedio
+      </p>
+
+      <h3>
+
+        {% if promedio %}
+
+        {{ promedio|floatformat:1 }}s
+
+        {% else %}
+
+        0s
+
+        {% endif %}
+
+      </h3>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="tarjeta mb-4">
+
+  <h2 class="titulo-principal mb-3">
+    📈 Resumen
+  </h2>
+
+  <p class="mb-0">
+
+    Nivel más jugado:
+
+    <strong>
+      {{ nivel_mas_jugado }}
+    </strong>
+
+  </p>
+
+</div>
+
+
+<div class="tarjeta">
+
+  <h2 class="titulo-principal mb-4">
+    📋 Historial de partidas
+  </h2>
+
+
+  {% if partidas %}
+
+  <div class="table-responsive">
+
+    <table class="table table-hover table-bordered align-middle">
+
+      <thead class="table-dark">
+
+        <tr>
+
+          <th>Fecha</th>
+
+          <th>Nivel</th>
+
+          <th>Resultado</th>
+
+          <th>Tiempo</th>
+
+          <th>Intentos restantes</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        {% for partida in partidas %}
+
+        <tr>
+
+          <td>
+            {{ partida.fecha|date:"d/m/Y H:i" }}
+          </td>
+
+
+          <td>
+            {{ partida.get_nivel_display }}
+          </td>
+
+
+          <td>
+
+            {% if partida.resultado == 'ganada' %}
+
+            <span class="badge bg-success">
+              Ganada
+            </span>
+
+            {% else %}
+
+            <span class="badge bg-danger">
+              Perdida
+            </span>
+
+            {% endif %}
+
+          </td>
+
+
+          <td>
+            {{ partida.tiempo_usado }} segundos
+          </td>
+
+
+          <td>
+            {{ partida.intentos_restantes }}
+          </td>
+
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  {% else %}
+
+  <div class="alert alert-info">
+
+    Todavía no has jugado ninguna partida.
+
+  </div>
+
+  {% endif %}
+
+</div>
+
+
+<div class="text-center mt-4">
+
+  <a href="{% url 'inicio' %}" class="btn btn-primary">
+    ← Volver al inicio
+  </a>
+
+</div>
+
+{% endblock %}

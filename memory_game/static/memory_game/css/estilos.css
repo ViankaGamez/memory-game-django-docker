@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2ff, #f7f7ff);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #212529;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #302b63, #24243e);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+  font-size: 1.35rem;
+}
+
+.titulo-principal {
+  font-weight: 700;
+  color: #302b63;
+}
+
+.subtitulo {
+  color: #6c757d;
+}
+
+.tarjeta {
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta-nivel {
+  border: none;
+  border-radius: 18px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+}
+
+.tarjeta-nivel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+}
+
+.nivel-basico {
+  border-top: 5px solid #198754;
+}
+
+.nivel-medio {
+  border-top: 5px solid #ffc107;
+}
+
+.nivel-avanzado {
+  border-top: 5px solid #dc3545;
+}
+
+.estadistica {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.estadistica h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #302b63;
+}
+
+form p {
+  margin-bottom: 18px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+}
+
+form input:focus {
+  border-color: #6f42c1;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 66, 193, 0.15);
+}
+
+.helptext {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.errorlist {
+  color: #dc3545;
+  padding-left: 20px;
+}
+
+footer {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background-color: #302b63;
+  border-color: #302b63;
+}
+
+.btn-primary:hover {
+  background-color: #24243e;
+  border-color: #24243e;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  white-space: nowrap;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 7px 10px;
+}
+
+@media (max-width: 576px) {
+
+  .tarjeta {
+    padding: 20px;
+  }
+
+  .titulo-principal {
+    font-size: 1.8rem;
+  }
+
+  .estadistica h3 {
+    font-size: 1.5rem;
+  }
+}

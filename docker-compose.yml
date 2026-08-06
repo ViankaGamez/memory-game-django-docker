@@ -1,0 +1,34 @@
+services:
+
+  web:
+    build: .
+    container_name: memory_game_web
+
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      - SQLITE_PATH=/data/db.sqlite3
+
+    volumes:
+      - sqlite_data:/data
+
+    networks:
+      - memory_network
+
+    restart: unless-stopped
+
+
+volumes:
+
+  sqlite_data:
+
+
+networks:
+
+  memory_network:
+    driver: bridge
