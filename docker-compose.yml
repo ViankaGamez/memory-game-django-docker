@@ -12,7 +12,9 @@ services:
       - "8000:8000"
 
     environment:
-      - SQLITE_PATH=/data/db.sqlite3
+    - SQLITE_PATH=/data/db.sqlite3
+    - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+    - DJANGO_DEBUG=${DJANGO_DEBUG:-True}
 
     volumes:
       - sqlite_data:/data
