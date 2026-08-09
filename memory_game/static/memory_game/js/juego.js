@@ -14,7 +14,6 @@ const tokenCSRF = document.querySelector(
   '[name=csrfmiddlewaretoken]'
 ).value;
 
-
 let intentos = intentosIniciales;
 let tiempo = tiempoInicial;
 
@@ -27,7 +26,7 @@ let juegoTerminado = false;
 
 
 /* =========================
-   SISTEMA DE SONIDO
+SISTEMA DE SONIDO
 ========================= */
 
 let contextoAudio = null;
@@ -35,7 +34,6 @@ let sonidoActivo = true;
 let musicaIniciada = false;
 let intervaloMusica = null;
 let posicionMusica = 0;
-
 
 const melodias = {
 
@@ -59,8 +57,8 @@ const melodias = {
     493.88,
     554.37
   ]
-};
 
+};
 
 const velocidadMusica = {
 
@@ -83,6 +81,7 @@ function obtenerContextoAudio() {
   }
 
   return contextoAudio;
+
 }
 
 
@@ -98,7 +97,8 @@ function tocarTono(
     return;
   }
 
-  const audio = obtenerContextoAudio();
+  const audio =
+    obtenerContextoAudio();
 
   const oscilador =
     audio.createOscillator();
@@ -112,14 +112,13 @@ function tocarTono(
   const final =
     inicio + duracion;
 
-
-  oscilador.type = tipo;
+  oscilador.type =
+    tipo;
 
   oscilador.frequency.setValueAtTime(
     frecuencia,
     inicio
   );
-
 
   ganancia.gain.setValueAtTime(
     volumen,
@@ -131,17 +130,22 @@ function tocarTono(
     final
   );
 
-
-  oscilador.connect(ganancia);
+  oscilador.connect(
+    ganancia
+  );
 
   ganancia.connect(
     audio.destination
   );
 
+  oscilador.start(
+    inicio
+  );
 
-  oscilador.start(inicio);
+  oscilador.stop(
+    final
+  );
 
-  oscilador.stop(final);
 }
 
 
@@ -248,7 +252,9 @@ function iniciarMusica() {
     !sonidoActivo ||
     juegoTerminado
   ) {
+
     return;
+
   }
 
   musicaIniciada = true;
@@ -259,35 +265,35 @@ function iniciarMusica() {
   const velocidad =
     velocidadMusica[nivelActual];
 
-
-  intervaloMusica = setInterval(() => {
-
-    if (
-      sonidoActivo &&
-      !juegoTerminado
-    ) {
-
-      tocarTono(
-        melodia[posicionMusica],
-        0.10,
-        'triangle',
-        0.018
-      );
-
-      posicionMusica++;
+  intervaloMusica =
+    setInterval(() => {
 
       if (
-        posicionMusica >=
-        melodia.length
+        sonidoActivo &&
+        !juegoTerminado
       ) {
 
-        posicionMusica = 0;
+        tocarTono(
+          melodia[posicionMusica],
+          0.10,
+          'triangle',
+          0.018
+        );
+
+        posicionMusica++;
+
+        if (
+          posicionMusica >=
+          melodia.length
+        ) {
+
+          posicionMusica = 0;
+
+        }
 
       }
 
-    }
-
-  }, velocidad);
+    }, velocidad);
 
 }
 
@@ -305,6 +311,7 @@ function detenerMusica() {
   }
 
   musicaIniciada = false;
+
 }
 
 
@@ -328,7 +335,9 @@ botonSonido.addEventListener(
         '🔊 Sonido activado';
 
       if (!juegoTerminado) {
+
         iniciarMusica();
+
       }
 
     } else {
@@ -345,7 +354,7 @@ botonSonido.addEventListener(
 
 
 /* =========================
-   CARTAS
+CARTAS
 ========================= */
 
 const valores = [
@@ -381,14 +390,12 @@ function crearTablero() {
 
   mezclarCartas();
 
-
   cartas.forEach(valor => {
 
     const carta =
       document.createElement(
         'button'
       );
-
 
     carta.classList.add(
       'carta'
@@ -400,12 +407,10 @@ function crearTablero() {
     carta.textContent =
       valor;
 
-
     carta.addEventListener(
       'click',
       voltearCarta
     );
-
 
     tablero.appendChild(
       carta
@@ -417,13 +422,63 @@ function crearTablero() {
 
 
 /* =========================
-   LÓGICA DEL JUEGO
+VISTA PREVIA DE CARTAS
+========================= */
+
+function mostrarCartasIniciales() {
+
+  // Bloqueamos el tablero para que
+  // el jugador no pueda hacer clic.
+  bloquearTablero = true;
+
+  const todasLasCartas =
+    document.querySelectorAll(
+      '.carta'
+    );
+
+  // Mostramos todas las cartas.
+  todasLasCartas.forEach(
+    carta => {
+
+      carta.classList.add(
+        'volteada'
+      );
+
+    }
+  );
+
+
+  // Después de 3 segundos
+  // ocultamos nuevamente las cartas.
+  setTimeout(() => {
+
+    todasLasCartas.forEach(
+      carta => {
+
+        carta.classList.remove(
+          'volteada'
+        );
+
+      }
+    );
+
+    // Habilitamos el tablero.
+    bloquearTablero = false;
+
+    // El tiempo comienza después
+    // de terminar la vista previa.
+    iniciarTemporizador();
+
+  }, 3000);
+
+}
+
+
+/* =========================
+LÓGICA DEL JUEGO
 ========================= */
 
 function voltearCarta() {
-
-  iniciarMusica();
-
 
   if (
     bloquearTablero ||
@@ -455,6 +510,11 @@ function voltearCarta() {
   }
 
 
+  // La música inicia con la
+  // primera interacción válida.
+  iniciarMusica();
+
+
   this.classList.add(
     'volteada'
   );
@@ -464,14 +524,16 @@ function voltearCarta() {
     primeraCarta === null
   ) {
 
-    primeraCarta = this;
+    primeraCarta =
+      this;
 
     return;
 
   }
 
 
-  segundaCarta = this;
+  segundaCarta =
+    this;
 
   comprobarPareja();
 
@@ -535,7 +597,8 @@ function parejaCorrecta() {
 
 function parejaIncorrecta() {
 
-  bloquearTablero = true;
+  bloquearTablero =
+    true;
 
   intentos--;
 
@@ -578,49 +641,73 @@ function parejaIncorrecta() {
 
 function reiniciarSeleccion() {
 
-  primeraCarta = null;
+  primeraCarta =
+    null;
 
-  segundaCarta = null;
+  segundaCarta =
+    null;
 
-  bloquearTablero = false;
+  bloquearTablero =
+    false;
 
 }
 
 
 /* =========================
-   TEMPORIZADOR
+TEMPORIZADOR
 ========================= */
 
-const temporizador =
-  setInterval(() => {
-
-    if (juegoTerminado) {
-      return;
-    }
+let temporizador =
+  null;
 
 
-    tiempo--;
+function iniciarTemporizador() {
+
+  if (temporizador) {
+
+    return;
+
+  }
 
 
-    document.getElementById(
-      'tiempo'
-    ).textContent =
-      tiempo;
+  temporizador =
+    setInterval(() => {
+
+      if (
+        juegoTerminado
+      ) {
+
+        return;
+
+      }
 
 
-    if (
-      tiempo <= 0
-    ) {
+      tiempo--;
 
-      terminarJuego(false);
 
-    }
+      document.getElementById(
+        'tiempo'
+      ).textContent =
+        tiempo;
 
-  }, 1000);
+
+      if (
+        tiempo <= 0
+      ) {
+
+        terminarJuego(
+          false
+        );
+
+      }
+
+    }, 1000);
+
+}
 
 
 /* =========================
-   GUARDAR PARTIDA
+GUARDAR PARTIDA
 ========================= */
 
 function guardarPartida(gano) {
@@ -633,7 +720,8 @@ function guardarPartida(gano) {
     '/guardar-partida/',
     {
 
-      method: 'POST',
+      method:
+        'POST',
 
       headers: {
 
@@ -645,26 +733,28 @@ function guardarPartida(gano) {
 
       },
 
-      body: JSON.stringify({
+      body:
+        JSON.stringify({
 
-        nivel:
-          nivelActual,
+          nivel:
+            nivelActual,
 
-        resultado:
-          gano
-            ? 'ganada'
-            : 'perdida',
+          resultado:
+            gano
+              ? 'ganada'
+              : 'perdida',
 
-        tiempo_usado:
-          tiempoUsado,
+          tiempo_usado:
+            tiempoUsado,
 
-        intentos_restantes:
-          intentos
+          intentos_restantes:
+            intentos
 
-      })
+        })
 
     }
   )
+
     .catch(error => {
 
       console.error(
@@ -678,24 +768,37 @@ function guardarPartida(gano) {
 
 
 /* =========================
-   FINAL DEL JUEGO
+FINAL DEL JUEGO
 ========================= */
 
 function terminarJuego(gano) {
 
-  if (juegoTerminado) {
+  if (
+    juegoTerminado
+  ) {
+
     return;
+
   }
 
 
-  juegoTerminado = true;
+  juegoTerminado =
+    true;
 
-  bloquearTablero = true;
+  bloquearTablero =
+    true;
 
 
-  clearInterval(
-    temporizador
-  );
+  if (temporizador) {
+
+    clearInterval(
+      temporizador
+    );
+
+    temporizador =
+      null;
+
+  }
 
 
   detenerMusica();
@@ -743,7 +846,7 @@ function terminarJuego(gano) {
 
 
 /* =========================
-   REINICIAR
+REINICIAR
 ========================= */
 
 document
@@ -760,4 +863,10 @@ document
   );
 
 
+/* =========================
+INICIAR JUEGO
+========================= */
+
 crearTablero();
+
+mostrarCartasIniciales();
