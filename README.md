@@ -68,3 +68,29 @@ El perfil permite consultar:
 
 ```bash
 git clone https://github.com/ViankaGamez/memory-game-django-docker.git
+```
+
+---
+
+### ⚠️ Importante: configurar el archivo `.env`
+
+Antes de ejecutar el proyecto con Docker es necesario crear un archivo llamado `.env` en la carpeta principal del proyecto.
+
+Puede copiar el archivo `.env.example` y renombrarlo a `.env`.
+
+Luego, genere una nueva clave secreta para Django ejecutando el siguiente comando en PowerShell:
+
+```powershell
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+```
+
+Copie la clave generada y colóquela dentro del archivo `.env` de la siguiente manera:
+
+```env
+DJANGO_SECRET_KEY=PEGA_AQUI_LA_CLAVE_GENERADA
+DJANGO_DEBUG=True
+```
+
+Reemplace `PEGA_AQUI_LA_CLAVE_GENERADA` por la clave obtenida con el comando anterior.
+
+> **Nota:** El archivo `.env` no se incluye en GitHub por motivos de seguridad, por lo que debe crearse localmente antes de ejecutar Docker.
